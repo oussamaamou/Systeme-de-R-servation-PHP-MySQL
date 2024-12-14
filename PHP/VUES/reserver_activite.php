@@ -11,9 +11,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $dateReservation = $_POST['date_reservation'];
 
     if (addReservation($activityId, $nom, $prenom, $telephone, $dateReservation)) {
-        echo "Réservation effectuée avec succès!";
+        echo "";
     } else {
-        echo "Erreur lors de la réservation.";
+        echo "";
     }
 }
 

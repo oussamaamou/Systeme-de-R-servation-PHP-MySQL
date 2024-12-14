@@ -11,18 +11,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_member'])) {
     $telephone = $_POST['telephone'];
 
     if (addClient($nom, $prenom, $email, $telephone)) {
-        echo "Membre ajouté avec succès!";
+        echo "";
     } else {
-        echo "Erreur lors de l'ajout du membre.";
+        echo "";
     }
 }
 
 if (isset($_GET['delete_id'])) {
     $membreId = $_GET['delete_id'];
     if (deleteClient($membreId)) {
-        echo "Membre supprimé avec succès!";
+        echo "";
     } else {
-        echo "Erreur lors de la suppression du membre.";
+        echo "";
     }
 }
 ?>

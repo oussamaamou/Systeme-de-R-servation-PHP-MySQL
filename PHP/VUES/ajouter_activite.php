@@ -11,9 +11,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $disponibilite = $_POST['disponibilite'];
 
     if (addActivity($nom, $description, $capacite, $dateDebut, $dateFin, $disponibilite)) {
-        echo "Activité ajoutée avec succès!";
+        echo "";
     } else {
-        echo "Erreur lors de l'ajout de l'activité.";
+        echo "";
     }
 }
 ?>

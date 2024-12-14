@@ -10,9 +10,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $telephone = $_POST['telephone'];
 
     if (addClient($nom, $prenom, $email, $telephone)) {
-        echo "Client ajouté avec succès!";
+        echo "";
     } else {
-        echo "Veuillez remplir tout les champs!!";
+        echo "";
     }
 }
 ?>
