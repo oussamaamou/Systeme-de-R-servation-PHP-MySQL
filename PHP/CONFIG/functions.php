@@ -25,10 +25,11 @@ function deleteClient($id) {
 
 
 // L'Ajout d'une réservation
-function addReservation($idClient, $idActivite, $dateReservation) {
+function addReservation($idActivite, $nom, $prenom, $telephone, $dateReservation) {
     global $conn;
-    $stmt = $conn->prepare("INSERT INTO reservationsdata (ID_client, ID_activite, Date_reservation, Statut) VALUES (?, ?, ?, 'Confirmée')");
-    $stmt->bind_param("iis", $idClient, $idActivite, $dateReservation);
+    $stmt = $conn->prepare("INSERT INTO reservationsdata (ID_activite, Nom_reservant, Prenom_reservant, Telephone_reservant, Date_reservation, Statut) VALUES (?, ?, ?, ?, ?, ?)");
+    $statut = 'Confirmée';
+    $stmt->bind_param("isssss",$idActivite, $nom, $prenom, $telephone, $dateReservation, $statut);
     return $stmt->execute();
 }
 
@@ -36,7 +37,7 @@ function addReservation($idClient, $idActivite, $dateReservation) {
 function addActivity($nom, $description, $capacite, $dateDebut, $dateFin, $disponibilite) {
     global $conn;
     $stmt = $conn->prepare("INSERT INTO activitesdata (Nom_activite, Description_activite, Capacite_activite, date_debut, date_fin, Disponibilite) VALUES (?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssisis", $nom, $description, $capacite, $dateDebut, $dateFin, $disponibilite);
+    $stmt->bind_param("ssissi", $nom, $description, $capacite, $dateDebut, $dateFin, $disponibilite);
     return $stmt->execute();
 }
 
