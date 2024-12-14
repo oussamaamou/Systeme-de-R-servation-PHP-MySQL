@@ -5,10 +5,12 @@ include '../CONFIG/functions.php';
 $activityId = $_GET['id'];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $clientId = $_POST['client_id'];
+    $nom = $_POST['nom'];
+    $prenom = $_POST['prenom'];
+    $telephone = $_POST['telephone'];
     $dateReservation = $_POST['date_reservation'];
 
-    if (addReservation($clientId, $activityId, $dateReservation)) {
+    if (addReservation($activityId, $nom, $prenom, $telephone, $dateReservation)) {
         echo "Réservation effectuée avec succès!";
     } else {
         echo "Erreur lors de la réservation.";
