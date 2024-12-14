@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <title>Ajouter une Activité</title>
 </head>
-<body>
+<body class="bg-gradient-to-b from-red-100 to-blue-500">
     <h2 class="text-3xl mb-[2rem] text-center font-bold dark:text-white">Ajouter une nouvelle Activité</h2>
 
     <form class="max-w-sm mx-auto mb-[2rem]" method="POST">
