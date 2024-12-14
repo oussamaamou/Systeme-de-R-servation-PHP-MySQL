@@ -52,7 +52,7 @@
             
             <div class=" w-[30rem] h-[24.8rem] p-6 mt-[1.6rem] ml-[10rem] bg-transparant rounded-lg">
 
-            <h5 class="mb-2 text-2xl font-bold tracking-tight text-black">Découvrez notre espace dédié à votre bien-être. Que vous soyez débutant ou sportif confirmé, notre salle est équipée des meilleurs équipements pour vous aider à atteindre vos objectifs. Ambiance motivante, coachs professionnels et installations modernes tout est réuni pour vous offrir une expérience unique et personnalisée</h5>
+            <h5 class="mb-2 text-2xl font-semibold tracking-tight text-black">Découvrez notre espace dédié à votre bien-être. Que vous soyez débutant ou sportif confirmé, notre salle est équipée des meilleurs équipements pour vous aider à atteindre vos objectifs. Ambiance motivante, coachs professionnels et installations modernes tout est réuni pour vous offrir une expérience unique et personnalisée</h5>
             </div>
 
             <div class="w-[50%] rounded-lg p-6 overflow-visible">
@@ -60,7 +60,7 @@
             </div>
         </div>
 
-        <div class="flex">
+        <div class="flex mb-[5rem]">
 
             <div class="w-[50%] mt-[6rem] ml-[10rem] rounded-lg p-6 overflow-visible">
             <img class="object-cover object-center w-full rounded-lg shadow-xl shadow-blue-gray-900/50" src="../ASSETS/IMGS/bg-1.jpg" alt="Image du Salle de Sport"/>
@@ -68,7 +68,7 @@
 
             <div class=" w-[30rem] mt-[8rem] h-[24.8rem] p-6 mt-[1.6rem] bg-transparant rounded-lg">
 
-            <h5 class="mb-2 text-2xl font-bold tracking-tight text-white">Rejoignez nos cours collectifs dynamiques ! Que ce soit pour du yoga, de la zumba, du spinning ou du crossfit, nos cours sont conçus pour vous offrir un entraînement stimulant et adapté à votre niveau. Venez partager un moment de convivialité tout en vous dépassant. À chaque séance, vous renforcez votre corps et votre esprit</h5>
+            <h5 class="mb-2 text-2xl font-semibold tracking-tight text-white">Rejoignez nos cours collectifs dynamiques ! Que ce soit pour du yoga, de la zumba, du spinning ou du crossfit, nos cours sont conçus pour vous offrir un entraînement stimulant et adapté à votre niveau. Venez partager un moment de convivialité tout en vous dépassant. À chaque séance, vous renforcez votre corps et votre esprit</h5>
             </div>
 
         </div>
