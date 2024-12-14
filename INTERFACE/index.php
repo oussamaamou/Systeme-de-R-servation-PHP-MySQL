@@ -24,22 +24,13 @@
                 <div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1 mt-[-4rem]" id="mobile-menu-2">
                     <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                         <li>
-                            <a href="#" class="block py-2 pr-4 pl-3 text-gray-800 rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white">Home</a>
+                            <a href="index.php" class="block py-2 pr-4 pl-3 text-gray-800 rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white">Home</a>
                         </li>
                         <li>
                             <a href="../PHP/VUES/afficher_activite.php" class="block py-2 pr-4 pl-3 text-gray-800 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Activités</a>
                         </li>
                         <li>
-                            <a href="#" class="block py-2 pr-4 pl-3 text-gray-800 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Marketplace</a>
-                        </li>
-                        <li>
-                            <a href="#" class="block py-2 pr-4 pl-3 text-gray-800 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Features</a>
-                        </li>
-                        <li>
-                            <a href="#" class="block py-2 pr-4 pl-3 text-gray-800 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Team</a>
-                        </li>
-                        <li>
-                            <a href="#" class="block py-2 pr-4 pl-3 text-gray-800 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Contact</a>
+                            <a href="https://www.linkedin.com/in/oussama-amou-b71151337/" target="_blank" class="block py-2 pr-4 pl-3 text-gray-800 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Contact</a>
                         </li>
                     </ul>
                 </div>
@@ -55,14 +46,14 @@
             <h5 class="mb-2 text-2xl font-semibold tracking-tight text-black">Découvrez notre espace dédié à votre bien-être. Que vous soyez débutant ou sportif confirmé, notre salle est équipée des meilleurs équipements pour vous aider à atteindre vos objectifs. Ambiance motivante, coachs professionnels et installations modernes tout est réuni pour vous offrir une expérience unique et personnalisée</h5>
             </div>
 
-            <div class="w-[50%] rounded-lg p-6 overflow-visible">
+            <div class="w-[50rem] rounded-lg p-6 overflow-visible">
             <img class="object-cover object-center w-full rounded-lg shadow-xl shadow-blue-gray-900/50" src="../ASSETS/IMGS/bg-2.jpeg" alt="Image du Salle de Sport"/>
             </div>
         </div>
 
         <div class="flex mb-[5rem]">
 
-            <div class="w-[50%] mt-[6rem] ml-[10rem] rounded-lg p-6 overflow-visible">
+            <div class="w-[50rem] mt-[6rem] ml-[10rem] rounded-lg p-6 overflow-visible">
             <img class="object-cover object-center w-full rounded-lg shadow-xl shadow-blue-gray-900/50" src="../ASSETS/IMGS/bg-1.jpg" alt="Image du Salle de Sport"/>
             </div>
 
