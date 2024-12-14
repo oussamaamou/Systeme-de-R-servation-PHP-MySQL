@@ -8,12 +8,14 @@ function addClient($nom, $prenom, $email, $telephone) {
     return $stmt->execute();
 }
 
+
 // Affichage des clients
 function getAllClients() {
     global $conn;
     $result = $conn->query("SELECT * FROM clientsdata");
     return $result->fetch_all(MYSQLI_ASSOC);
 }
+
 
 // Suppression d'un client
 function deleteClient($id) {
@@ -22,6 +24,7 @@ function deleteClient($id) {
     $stmt->bind_param("i", $id);
     return $stmt->execute();
 }
+
 
 
 // L'Ajout d'une réservation
@@ -33,6 +36,8 @@ function addReservation($idActivite, $nom, $prenom, $telephone, $dateReservation
     return $stmt->execute();
 }
 
+
+
 // L'Ajout d'une activité
 function addActivity($nom, $description, $capacite, $dateDebut, $dateFin, $disponibilite) {
     global $conn;
@@ -41,6 +46,8 @@ function addActivity($nom, $description, $capacite, $dateDebut, $dateFin, $dispo
     return $stmt->execute();
 }
 
+
+
 // Affichage des activités
 function getAvailableActivities() {
     global $conn;
@@ -48,19 +55,5 @@ function getAvailableActivities() {
     return $result->fetch_all(MYSQLI_ASSOC);
 }
 
-// Suppression d'une réservation
-function deleteReservation($idReservation) {
-    global $conn;
-    $stmt = $conn->prepare("DELETE FROM reservationsdata WHERE ID = ?");
-    $stmt->bind_param("i", $idReservation);
-    return $stmt->execute();
-}
 
-// Suppression d'une activité
-function deleteActivity($idActivity) {
-    global $conn;
-    $stmt = $conn->prepare("DELETE FROM activitesdata WHERE ID = ?");
-    $stmt->bind_param("i", $idActivity);
-    return $stmt->execute();
-}
 ?>
