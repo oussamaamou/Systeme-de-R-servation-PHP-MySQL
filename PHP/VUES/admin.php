@@ -4,7 +4,7 @@ include '../CONFIG/functions.php';
 
 $membres = getAllClients();
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_member'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nom = $_POST['nom'];
     $prenom = $_POST['prenom'];
     $email = $_POST['email'];
