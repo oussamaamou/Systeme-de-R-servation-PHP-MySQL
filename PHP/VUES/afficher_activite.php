@@ -2,7 +2,6 @@
 include '../CONFIG/config.php';
 include '../CONFIG/functions.php';
 
-// $activities = getAvailableActivities();
 
 ?>
 <!DOCTYPE html>
@@ -25,7 +24,7 @@ include '../CONFIG/functions.php';
                     <img src="/Systeme%20de%20Reservation%20PHP%20&%20MySQL/ASSETS/IMGS/Logo Gym Reservation.png" class="mr-3 mt-[-3rem] w-[15rem]" alt="Logo du Site Web" />
                 </a>
                 <div class="flex items-center lg:order-2 mt-[-4rem]">
-                    <a href="../VUES/gestion.php" class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Log in</a>
+                    <a href="../VUES/login.php" class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Log in</a>
                     <a href="../VUES/inscription.php" class="text-white bg-blue-900 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">Get started</a>
                 </div>
                 <div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1 mt-[-4rem]" id="mobile-menu-2">
@@ -49,9 +48,10 @@ include '../CONFIG/functions.php';
     <main>
         <!-- Form de reservation -->
         
-        <div class="hidden fixed top-[10rem] left-[34rem] w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+        <div id="frmrsrv" class="hidden fixed top-[6rem] left-[34rem] w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+            <i id="xmark1" class="fa-solid fa-xmark text-2xl mt-[1rem] ml-[26rem] hover:cursor-pointer" style="color: #1b1c1d;"></i>
             <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-                <h2 class="text-2xl mb-[2rem] text-center font-bold dark:text-white">Réserver l'activité: Cardio</h2>
+                <h2 class="text-2xl mb-[2rem] text-center font-bold dark:text-white">Réserver l'activité: </h2>
 
                 <form class="max-w-sm mx-auto" method="POST">
                     <div class="mb-5">
@@ -71,7 +71,7 @@ include '../CONFIG/functions.php';
                         <input type="datetime-local" id="date_reservation" name="date_reservation" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" required />
                     </div>
                     
-                    <button type="submit" class="text-white bg-blue-900 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Réserver Maintenant</button>
+                    <button type="submit" class="text-white bg-blue-900 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Réserver Maintenant</button>
                 </form>
             </div>
         </div>
@@ -95,7 +95,7 @@ include '../CONFIG/functions.php';
                             <p class="mb-3 font-bold text-gray-700 dark:text-gray-400">Capacité: </p>
                             
                         </div>
-                        <a class="inline-flex mt-[1rem] mb-[1rem] ml-[33rem] items-center px-3 py-3 text-base font-medium text-center text-white bg-blue-900 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" href="reserver_activite.php?id=<?php echo $activity['ID']; ?>">Réserver</a>
+                        <a id="frmbttn" class="inline-flex mt-[1rem] mb-[1rem] ml-[33rem] items-center px-3 py-3 text-base font-medium text-center text-white bg-blue-900 rounded-lg hover:bg-blue-800" href="reserver_activite.php?id=<?php echo $activity['ID']; ?>">Réserver</a>
                     </div>
                 </li>
         </ul>
@@ -129,6 +129,13 @@ include '../CONFIG/functions.php';
         </div>
     </footer>
 
-
+    <script>
+        document.getElementById("frmbttn").addEventListener('click', function(){
+            document.getElementById("frmrsrv").classList.remove('hidden');
+        });
+        document.getElementById("xmark1").addEventListener('click', function(){
+            document.getElementById("frmrsrv").classList.add('hidden');
+        });
+    </script>
 </body>
 </html>
