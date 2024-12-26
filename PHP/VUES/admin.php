@@ -2,7 +2,7 @@
 include '../CONFIG/config.php';
 include '../CONFIG/functions.php';
 
-$membres = getAllClients();
+// $membres = getAllClients();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nom = $_POST['nom'];
@@ -10,21 +10,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $telephone = $_POST['telephone'];
 
-    if (addClient($nom, $prenom, $email, $telephone)) {
-        echo "";
-    } else {
-        echo "";
-    }
+    
 }
 
-if (isset($_GET['delete_id'])) {
-    $membreId = $_GET['delete_id'];
-    if (deleteClient($membreId)) {
-        echo "";
-    } else {
-        echo "";
-    }
-}
+// if (isset($_GET['delete_id'])) {
+//     $membreId = $_GET['delete_id'];
+//     if (deleteClient($membreId)) {
+//         echo "";
+//     } else {
+//         echo "";
+//     }
+// }
 ?>
 <!DOCTYPE html>
 <html lang="fr">

@@ -10,12 +10,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $dateFin = $_POST['date_fin'];
     $disponibilite = $_POST['disponibilite'];
 
-    if (addActivity($nom, $description, $capacite, $dateDebut, $dateFin, $disponibilite)) {
-        echo "";
-    } else {
-        echo "";
-    }
+//   addActivity($nom, $description, $capacite, $dateDebut, $dateFin, $disponibilite);
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
