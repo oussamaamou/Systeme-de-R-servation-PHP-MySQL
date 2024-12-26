@@ -95,4 +95,4 @@ LIMIT 3;
 -- Quel est le pourcentage des réservations annulées par rapport au total des réservations ?
 SELECT 
     (COUNT(CASE WHEN status = 'Annulée' THEN 1 END) * 100.0 / COUNT(*)) AS pourcentage_reservations_annulees
-FROM reservationsdata;
+    FROM reservationsdata;

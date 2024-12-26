@@ -2,7 +2,7 @@
 include '../CONFIG/config.php';
 include '../CONFIG/functions.php';
 
-$activities = getAvailableActivities();
+// $activities = getAvailableActivities();
 
 ?>
 <!DOCTYPE html>
@@ -44,8 +44,41 @@ $activities = getAvailableActivities();
             </div>
         </nav>
     </header>
+
+
     <main>
-    <h2 class="text-3xl mb-[2rem] mt-[3rem] text-center font-bold dark:text-white">Activités Disponibles</h2>
+        <!-- Form de reservation -->
+        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+            <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+                <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+                    <h2 class="text-2xl mb-[2rem] text-center font-bold dark:text-white">Réserver l'activité: Cardio</h2>
+
+                    <form class="max-w-sm mx-auto" method="POST">
+                        <div class="mb-5">
+                            <label for="nom" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom</label>
+                            <input type="text" id="nom" name="nom" class="capitalize shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" required />
+                        </div>
+                        <div class="mb-5">
+                            <label for="prenom" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prenom</label>
+                            <input type="text" id="prenom" name="prenom" class="capitalize shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" required />
+                        </div>
+                        <div class="mb-5">
+                            <label for="telephone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Téléphone</label>
+                            <input type="text" id="telephone" name="telephone" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" required />
+                        </div>
+                        <div class="mb-5">
+                            <label for="date_reservation" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date de réservation</label>
+                            <input type="datetime-local" id="date_reservation" name="date_reservation" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" required />
+                        </div>
+                        
+                        <button type="submit" class="text-white bg-blue-900 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Réserver Maintenant</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- //////////////////////////////////////////////////////// -->
+         
+        <h2 class="text-3xl mb-[2rem] mt-[3rem] text-center font-bold dark:text-white">Activités Disponibles</h2>
         <ul class="pl-[30%]">
             <?php foreach ($activities as $activity): ?>
                 <li class="mb-[3rem]"> 
