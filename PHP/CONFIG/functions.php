@@ -1,13 +1,13 @@
 <?php
 
-// // L'Ajout d'un client
-// function addClient($nom, $prenom, $email, $telephone, $mot_de_passe, $username, $role) {
-//     global $conn;
-//     $mot_de_passe = password_hash($mot_de_passe, PASSWORD_DEFAULT);
-//     $stmt = $conn->prepare("INSERT INTO users (Nom_client, Prenom_client, Email_client, Telephone_client, Mot_de_passe, Username, Role) VALUES (?, ?, ?, ?, ?, ?, ?)");
-//     $stmt->bind_param("sssssss", $nom, $prenom, $email, $telephone, $mot_de_passe, $username, $role);
-//     return $stmt->execute();
-// }
+// L'Ajout d'un client
+function addClient($nom, $prenom, $email, $telephone, $mot_de_passe, $username, $role) {
+    global $conn;
+    $mot_de_passe = password_hash($mot_de_passe, PASSWORD_DEFAULT);
+    $stmt = $conn->prepare("INSERT INTO users (Nom_client, Prenom_client, Email_client, Telephone_client, Mot_de_passe, Username, Role) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssssss", $nom, $prenom, $email, $telephone, $mot_de_passe, $username, $role);
+    return $stmt->execute();
+}
 
 
 
