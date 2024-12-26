@@ -50,7 +50,15 @@
         // }
 
         public function loginUtilisateur($username, $password){
+
             $sql = ("SELECT * FROM users WHERE Email_client = ?");
+            $stmt = $this->conn->prepare($sql);
+
+            $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+            $stmt->bindParam(':password', $password, PDO::PARAM_STR);
+
+
+
 
         }
 
