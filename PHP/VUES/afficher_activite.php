@@ -2,7 +2,7 @@
 include '../CONFIG/config.php';
 include '../CONFIG/functions.php';
 
-$activities = getAvailableActivities();
+// $activities = getAvailableActivities();
 
 ?>
 <!DOCTYPE html>
@@ -25,8 +25,8 @@ $activities = getAvailableActivities();
                     <img src="/Systeme%20de%20Reservation%20PHP%20&%20MySQL/ASSETS/IMGS/Logo Gym Reservation.png" class="mr-3 mt-[-3rem] w-[15rem]" alt="Logo du Site Web" />
                 </a>
                 <div class="flex items-center lg:order-2 mt-[-4rem]">
-                    <a href="../VUES/admin.php" class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Log in</a>
-                    <a href="../VUES/register.php" class="text-white bg-blue-900 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">Get started</a>
+                    <a href="../VUES/gestion.php" class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Log in</a>
+                    <a href="../VUES/inscription.php" class="text-white bg-blue-900 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">Get started</a>
                 </div>
                 <div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1 mt-[-4rem]" id="mobile-menu-2">
                     <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
@@ -44,10 +44,42 @@ $activities = getAvailableActivities();
             </div>
         </nav>
     </header>
+
+
     <main>
-    <h2 class="text-3xl mb-[2rem] mt-[3rem] text-center font-bold dark:text-white">Activités Disponibles</h2>
+        <!-- Form de reservation -->
+        
+        <div class="hidden fixed top-[10rem] left-[34rem] w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+            <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+                <h2 class="text-2xl mb-[2rem] text-center font-bold dark:text-white">Réserver l'activité: Cardio</h2>
+
+                <form class="max-w-sm mx-auto" method="POST">
+                    <div class="mb-5">
+                        <label for="nom" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom</label>
+                        <input type="text" id="nom" name="nom" class="capitalize shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" required />
+                    </div>
+                    <div class="mb-5">
+                        <label for="prenom" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prenom</label>
+                        <input type="text" id="prenom" name="prenom" class="capitalize shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" required />
+                    </div>
+                    <div class="mb-5">
+                        <label for="telephone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Téléphone</label>
+                        <input type="text" id="telephone" name="telephone" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" required />
+                    </div>
+                    <div class="mb-5">
+                        <label for="date_reservation" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date de réservation</label>
+                        <input type="datetime-local" id="date_reservation" name="date_reservation" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" required />
+                    </div>
+                    
+                    <button type="submit" class="text-white bg-blue-900 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Réserver Maintenant</button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- //////////////////////////////////////////////////////// -->
+         
+        <h2 class="text-3xl mb-[2rem] mt-[3rem] text-center font-bold dark:text-white">Activités Disponibles</h2>
         <ul class="pl-[30%]">
-            <?php foreach ($activities as $activity): ?>
                 <li class="mb-[3rem]"> 
                     <div class="w-[40rem] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                         <a href="#">
@@ -55,18 +87,17 @@ $activities = getAvailableActivities();
                         </a>
                         <div class="p-5">
                             <a href="#">
-                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><?php echo htmlspecialchars($activity['Nom_activite']); ?></h5>
+                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"></h5>
                             </a>
-                            <p class="mb-3 font-medium text-gray-700 dark:text-gray-400"><?php echo htmlspecialchars($activity['Description_activite']); ?></p>
-                            <p class="mb-3 font-bold text-gray-700 dark:text-gray-400">Date de Debut: <?php echo htmlspecialchars($activity['date_debut']); ?> </p>
-                            <p class="mb-3 font-bold text-gray-700 dark:text-gray-400">Date de Fin: <?php echo htmlspecialchars($activity['date_fin']); ?> </p>
-                            <p class="mb-3 font-bold text-gray-700 dark:text-gray-400">Capacité: <?php echo $activity['Capacite_activite']; ?></p>
+                            <p class="mb-3 font-medium text-gray-700 dark:text-gray-400"></p>
+                            <p class="mb-3 font-bold text-gray-700 dark:text-gray-400">Date de Debut: </p>
+                            <p class="mb-3 font-bold text-gray-700 dark:text-gray-400">Date de Fin: </p>
+                            <p class="mb-3 font-bold text-gray-700 dark:text-gray-400">Capacité: </p>
                             
                         </div>
                         <a class="inline-flex mt-[1rem] mb-[1rem] ml-[33rem] items-center px-3 py-3 text-base font-medium text-center text-white bg-blue-900 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" href="reserver_activite.php?id=<?php echo $activity['ID']; ?>">Réserver</a>
                     </div>
                 </li>
-            <?php endforeach; ?>
         </ul>
     </main>
 
@@ -76,7 +107,7 @@ $activities = getAvailableActivities();
         <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
             <div class="sm:flex sm:items-center sm:justify-between">
                 <a href="" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
-                    <img src="/ASSETS/IMGS/Logo Gym Reservation.png" class="w-[8rem]" alt="Flowbite Logo" />
+                    <img src="/Systeme%20de%20Reservation%20PHP%20&%20MySQL/ASSETS/IMGS/Logo Gym Reservation.png" class="w-[8rem]" alt="Flowbite Logo" />
                 </a>
                 <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
                     <li>
