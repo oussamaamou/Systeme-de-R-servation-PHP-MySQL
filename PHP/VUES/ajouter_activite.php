@@ -1,13 +1,11 @@
 <?php
 require_once '../CONFIG/Database.php';
 require './admin.php';
+require_once 'auth_admin.php';
 
 session_start();
-
-if (!isset($_SESSION['user']) || $_SESSION['user']['Role'] !== 'Admin') {
-    header('Location: login.php');
-    exit();
-}
+$db = new Database();
+$activityManager = new ActivityManager($db);
 
 $db = new Database();
 $activityManager = new ActivityManager($db);

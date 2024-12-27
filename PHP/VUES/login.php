@@ -13,7 +13,22 @@
         if ($result === false) {
             $error_message = "Mot de Passe ou Email est incorrect!";
         }
+if ($user = $userManager->login($username, $password)) {
+    $_SESSION['user'] = [
+        'id' => $user['ID'],
+        'username' => $user['Username'],
+        'Role' => $user['Role']
+    ];
+    
+    if ($user['Role'] === 'Admin') {
+        header('Location: gestion.php');
+    } else {
+        header('Location: index.php');
     }
+    exit();
+}
+    }
+    
 
 
 ?>
