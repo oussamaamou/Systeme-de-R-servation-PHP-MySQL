@@ -1,5 +1,5 @@
 <?php 
-
+include 'utilisateur.php';
 
 class Client {
     private $conn;
@@ -27,6 +27,7 @@ class Client {
 
         return $stmt->execute();
     }
+    
 
 
     public function addReservation($ID_client, $ID_activite, $Date_reservation, $Status ){
@@ -44,6 +45,22 @@ class Client {
     }
 
 
+    public function annulerreservation($ID){
+
+        $sql = ("DELETE FROM reservationsdata WHERE ID = ?");
+        $stmt = $this->conn->prepare($sql);
+
+        $stmt->bindParam(':ID', $ID, PDO::PARAM_INT);
+
+        return $stmt->execute();
+    }
+
+
+    public function loginClient($username, $password){
+
+        $utilisateur = new Utilisateur($this->conn);
+        $utilisateur->loginUtilisateur($username, $password);
+    }
     
 }
 
