@@ -1,6 +1,18 @@
 <?php
-include '../CONFIG/config.php';
-include '../CONFIG/functions.php';
+require_once '../CONFIG/Database.php';
+require './admin.php';
+
+
+
+$db = new Database();
+$activityManager = new ActivityManager($db);
+
+try {
+    $activities = $activityManager->getAllActivities();
+} catch (Exception $e) {
+    $_SESSION['error'] = $e->getMessage();
+    $activities = [];
+}
 
 
 ?>
@@ -73,10 +85,10 @@ include '../CONFIG/functions.php';
             </div>
         </div>
         
-        <!-- //////////////////////////////////////////////////////// -->
          
         <h2 class="text-3xl mb-[2rem] mt-[3rem] text-center font-bold dark:text-white">Activités Disponibles</h2>
         <ul class="pl-[30%]">
+        <?php foreach ($activities as $activity) : ?>
                 <li class="mb-[3rem]"> 
                     <div class="w-[40rem] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                         <a href="#">
@@ -86,15 +98,16 @@ include '../CONFIG/functions.php';
                             <a href="#">
                                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"></h5>
                             </a>
-                            <p class="mb-3 font-medium text-gray-700 dark:text-gray-400"></p>
-                            <p class="mb-3 font-bold text-gray-700 dark:text-gray-400">Date de Debut: </p>
-                            <p class="mb-3 font-bold text-gray-700 dark:text-gray-400">Date de Fin: </p>
-                            <p class="mb-3 font-bold text-gray-700 dark:text-gray-400">Capacité: </p>
+                            <p class="mb-3 font-medium text-gray-700 dark:text-gray-400"><?php echo htmlspecialchars($activity['description']); ?></p>
+                            <p class="mb-3 font-bold text-gray-700 dark:text-gray-400">Date de Debut: <?php echo htmlspecialchars($activity['date_debut']); ?></p>
+                            <p class="mb-3 font-bold text-gray-700 dark:text-gray-400">Date de Fin: <?php echo htmlspecialchars($activity['date_fin']); ?></p>
+                            <p class="mb-3 font-bold text-gray-700 dark:text-gray-400">Capacité: <?php echo htmlspecialchars($activity['capacite']); ?></p>
                             
                         </div>
                         <a id="frmbttn" class="inline-flex mt-[1rem] mb-[1rem] ml-[33rem] items-center px-3 py-3 text-base font-medium text-center text-white bg-blue-900 rounded-lg hover:bg-blue-800" href="reserver_activite.php?id=<?php echo $activity['ID']; ?>">Réserver</a>
                     </div>
                 </li>
+                <?php endforeach; ?>
         </ul>
     </main>
 

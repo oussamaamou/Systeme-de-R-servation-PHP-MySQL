@@ -1,26 +1,67 @@
 <?php
+require_once '../CONFIG/Database.php';
+require './admin.php';
 
-    include '../CONFIG/config.php'; 
-    include '../VUES/client.php'; 
+session_start();
 
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $nom = $_POST['nom'];
-        $prenom = $_POST['prenom'];
-        $email = $_POST['email'];
-        $telephone = $_POST['telephone'];
-        $password = $_POST['password'];
-        $username = $_POST['username'];
-        $role = 'client';
+if (!isset($_SESSION['user']) || $_SESSION['user']['Role'] !== 'Admin') {
+    header('Location: login.php');
+    exit();
+}
 
-        $db = new DataBase();
-        $conn = $db->getConnection(); 
+$db = new Database();
+$userManager = new UserManager($db);
 
-        $client = new Client($conn);
-
-        $client->addClient($nom, $prenom, $email, $telephone, $password, $username, $role);
-        
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['action'])) {
+        switch ($_POST['action']) {
+            case 'add':
+                try {
+                    $userManager->addUser(
+                        $_POST['nom'],
+                        $_POST['prenom'],
+                        $_POST['email'],
+                        $_POST['telephone'],
+                        $_POST['password'],
+                        $_POST['username']
+                    );
+                    $_SESSION['message'] = "Utilisateur ajouté avec succès";
+                } catch (Exception $e) {
+                    $_SESSION['error'] = $e->getMessage();
+                }
+                break;
+            case 'update':
+                try {
+                    $userManager->updateUser(
+                        $_POST['id'],
+                        $_POST['nom'],
+                        $_POST['prenom'],
+                        $_POST['email'],
+                        $_POST['telephone']
+                    );
+                    $_SESSION['message'] = "Utilisateur mis à jour avec succès";
+                } catch (Exception $e) {
+                    $_SESSION['error'] = $e->getMessage();
+                }
+                break;
+        }
     }
+    header('Location: gestion.php');
+    exit();
+}
 
+if (isset($_GET['delete'])) {
+    try {
+        $userManager->deleteUser($_GET['delete']);
+        $_SESSION['message'] = "Utilisateur supprimé avec succès";
+    } catch (Exception $e) {
+        $_SESSION['error'] = $e->getMessage();
+    }
+    header('Location: gestion.php');
+    exit();
+}
+
+$users = $userManager->getAllUsers();
 ?>
 
 <!DOCTYPE html>
@@ -123,31 +164,74 @@
                 <th scope="col" class="px-9 py-3 bg-gray-50">
                     Téléphone
                 </th>
-                <th scope="col" class="px-9 py-3">
-                    Actions
-                </th>
+                <td class="px-6 py-4">
+                    <a href="?edit_id=<?php echo $client['ID']; ?>" class="bg-blue-500 text-white px-2 py-1 rounded mr-2">Modifier</a>
+                    <a href="?delete_id=<?php echo $client['ID']; ?>" class="bg-red-500 text-white px-2 py-1 rounded" 
+                        onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce client ?')">Supprimer</a>
+                </td>
+                <?php
+                    // Ajoutez ce formulaire de modification qui apparaîtra si edit_id est présent
+                    if (isset($_GET['edit_id'])) {
+                    $client = $clientManager->getClientById($_GET['edit_id']);
+                ?>
+<div class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
+    <form method="POST" class="bg-white p-6 rounded-lg">
+        <h3 class="text-xl font-bold mb-4">Modifier le client</h3>
+        <input type="hidden" name="update_id" value="<?php echo $client['ID']; ?>">
+        
+        <div class="mb-4">
+            <label class="block mb-2">Nom</label>
+            <input type="text" name="nom" value="<?php echo $client['Nom_client']; ?>" 
+                   class="w-full p-2 border rounded">
+        </div>
+        
+        <div class="mb-4">
+            <label class="block mb-2">Prénom</label>
+            <input type="text" name="prenom" value="<?php echo $client['Prenom_client']; ?>" 
+                   class="w-full p-2 border rounded">
+        </div>
+        
+        <div class="mb-4">
+            <label class="block mb-2">Email</label>
+            <input type="email" name="email" value="<?php echo $client['Email_client']; ?>" 
+                   class="w-full p-2 border rounded">
+        </div>
+        
+        <div class="mb-4">
+            <label class="block mb-2">Téléphone</label>
+            <input type="text" name="telephone" value="<?php echo $client['Telephone_client']; ?>" 
+                   class="w-full p-2 border rounded">
+        </div>
+        
+        <div class="flex justify-end gap-2">
+            <a href="gestion.php" class="bg-gray-500 text-white px-4 py-2 rounded">Annuler</a>
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Enregistrer</button>
+            </div>
+            </form>
+            </div>
+            <?php } ?>
             </tr>
 
-            <?php foreach ($membres as $membre) { ?>
+            <?php foreach ($users as $user) { ?>
                 <tr>
                     <td class="px-6 py-4">
-                        <?php echo htmlspecialchars($membre['Nom_client']); ?>
+                        <?php echo htmlspecialchars($user['Nom_client']); ?>
                     </td>
 
                     <td class="px-6 py-4 bg-gray-50">
-                        <?php echo htmlspecialchars($membre['Prenom_client']); ?>
+                        <?php echo htmlspecialchars($user['Prenom_client']); ?>
                     </td>
 
                     <td class="px-6 py-4">
-                        <?php echo htmlspecialchars($membre['Email_client']); ?>
+                        <?php echo htmlspecialchars($user['Email_client']); ?>
                     </td>
 
                     <td class="px-6 py-4 bg-gray-50">
-                        <?php echo htmlspecialchars($membre['Telephone_client']); ?>
+                        <?php echo htmlspecialchars($user['Telephone_client']); ?>
                     </td>
 
                     <td class="px-6 py-4 bg-red-500 text-white hover:bg-red-400">
-                        <a href="gestion.php?delete_id=<?php echo $membre['ID']; ?>">Supprimer</a>
+                        <a href="gestion.php?delete_id=<?php echo $user['ID']; ?>">Supprimer</a>
                     </td>
                 </tr>
             <?php } ?>
