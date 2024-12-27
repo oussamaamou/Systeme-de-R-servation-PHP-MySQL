@@ -19,7 +19,6 @@ abstract class AbstractManager {
         }
     }
 }
-
 class UserManager extends AbstractManager {
     public function getAllUsers() {
         return $this->executeQuery("SELECT * FROM users")->fetchAll();

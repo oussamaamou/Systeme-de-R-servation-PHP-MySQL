@@ -17,7 +17,22 @@
         if (!$client->loginClient($username, $password)) {
             $error_message = "Invalid username or password.";
         }
+if ($user = $userManager->login($username, $password)) {
+    $_SESSION['user'] = [
+        'id' => $user['ID'],
+        'username' => $user['Username'],
+        'Role' => $user['Role']
+    ];
+    
+    if ($user['Role'] === 'Admin') {
+        header('Location: gestion.php');
+    } else {
+        header('Location: index.php');
     }
+    exit();
+}
+    }
+    
 
 
 ?>

@@ -1,6 +1,7 @@
 <?php
 require_once '../CONFIG/Database.php';
 require './admin.php';
+require_once 'auth_admin.php';
 
 session_start();
 
