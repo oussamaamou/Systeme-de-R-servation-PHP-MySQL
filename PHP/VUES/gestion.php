@@ -1,14 +1,8 @@
 <?php
 require_once '../CONFIG/Database.php';
-require './admin.php';
-require_once 'auth_admin.php';
+require 'admin.php';
 
 session_start();
-
-if (!isset($_SESSION['user']) || $_SESSION['user']['Role'] !== 'Admin') {
-    header('Location: login.php');
-    exit();
-}
 
 $db = new Database();
 $userManager = new UserManager($db);
@@ -51,9 +45,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit();
 }
 
-if (isset($_GET['delete'])) {
+if (isset($_GET['delete_id'])) {
     try {
-        $userManager->deleteUser($_GET['delete']);
+        $userManager->deleteUser($_GET['delete_id']);
         $_SESSION['message'] = "Utilisateur supprimé avec succès";
     } catch (Exception $e) {
         $_SESSION['error'] = $e->getMessage();
@@ -84,20 +78,19 @@ $users = $userManager->getAllUsers();
                 <a class="flex items-center">
                     <img src="/Systeme%20de%20Reservation%20PHP%20&%20MySQL/ASSETS/IMGS/Logo Gym Reservation.png" class="mr-3 mt-[-3rem] w-[15rem]" alt="Logo du Site Web" />
                 </a>
-                <div class="flex items-center lg:order-2 mt-[-4rem]">
-                    <a href="../VUES/login.php" class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Log in</a>
-                    <a href="../VUES/inscription.php" class="text-white bg-blue-900 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">Get started</a>
+                <div class="flex items-center lg:order-2 mt-[-4rem]">     
+                    <a href="../VUES/logout.php" class="text-white bg-blue-900 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">Logout</a>
                 </div>
                 <div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1 mt-[-4rem]" id="mobile-menu-2">
-                    <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+                    <ul class="flex flex-col mt-4 mr-[9rem] font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                         <li>
-                            <a href="/Systeme%20de%20Reservation%20PHP%20&%20MySQL/INTERFACE/index.php" class="block py-2 pr-4 pl-3 text-gray-900 rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white">Home</a>
+                            <a href="gestion.php" class="block py-2 pr-4 pl-3 text-gray-900 rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white">Gestion</a>
                         </li>
                         <li>
-                            <a href="afficher_activite.php" class="block py-2 pr-4 pl-3 text-gray-900 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Activités</a>
+                            <a href="afficher_activite_admin.php" class="block py-2 pr-4 pl-3 text-gray-900 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Activités</a>
                         </li>
                         <li>
-                            <a href="https://www.linkedin.com/in/oussama-amou-b71151337/" target="_blank" class="block py-2 pr-4 pl-3 text-gray-900 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Contact</a>
+                            <a href="manipuler_reservation.php" class="block py-2 pr-4 pl-3 text-gray-900 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Réservations</a>
                         </li>
                     </ul>
                 </div>
@@ -113,9 +106,6 @@ $users = $userManager->getAllUsers();
             <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
                 <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                     <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-                        <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                        Créer votre compte
-                        </h1>
                         <form class="space-y-4 md:space-y-6" method="POST">
                             <div>
                                 <label for="nom" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom</label>
@@ -166,49 +156,46 @@ $users = $userManager->getAllUsers();
                     Téléphone
                 </th>
                 <td class="px-6 py-4">
-                    <a href="?edit_id=<?php echo $client['ID']; ?>" class="bg-blue-500 text-white px-2 py-1 rounded mr-2">Modifier</a>
-                    <a href="?delete_id=<?php echo $client['ID']; ?>" class="bg-red-500 text-white px-2 py-1 rounded" 
-                        onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce client ?')">Supprimer</a>
+                    Action
                 </td>
                 <?php
-                    // Ajoutez ce formulaire de modification qui apparaîtra si edit_id est présent
                     if (isset($_GET['edit_id'])) {
                     $client = $clientManager->getClientById($_GET['edit_id']);
                 ?>
-<div class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
-    <form method="POST" class="bg-white p-6 rounded-lg">
-        <h3 class="text-xl font-bold mb-4">Modifier le client</h3>
-        <input type="hidden" name="update_id" value="<?php echo $client['ID']; ?>">
-        
-        <div class="mb-4">
-            <label class="block mb-2">Nom</label>
-            <input type="text" name="nom" value="<?php echo $client['Nom_client']; ?>" 
-                   class="w-full p-2 border rounded">
-        </div>
-        
-        <div class="mb-4">
-            <label class="block mb-2">Prénom</label>
-            <input type="text" name="prenom" value="<?php echo $client['Prenom_client']; ?>" 
-                   class="w-full p-2 border rounded">
-        </div>
-        
-        <div class="mb-4">
-            <label class="block mb-2">Email</label>
-            <input type="email" name="email" value="<?php echo $client['Email_client']; ?>" 
-                   class="w-full p-2 border rounded">
-        </div>
-        
-        <div class="mb-4">
-            <label class="block mb-2">Téléphone</label>
-            <input type="text" name="telephone" value="<?php echo $client['Telephone_client']; ?>" 
-                   class="w-full p-2 border rounded">
-        </div>
-        
-        <div class="flex justify-end gap-2">
-            <a href="gestion.php" class="bg-gray-500 text-white px-4 py-2 rounded">Annuler</a>
-            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Enregistrer</button>
-            </div>
-            </form>
+            <div class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
+                <form method="POST" class="bg-white p-6 rounded-lg">
+                    <h3 class="text-xl font-bold mb-4">Modifier le client</h3>
+                    <input type="hidden" name="update_id" value="<?php echo $client['ID']; ?>">
+                    
+                    <div class="mb-4">
+                        <label class="block mb-2">Nom</label>
+                        <input type="text" name="nom" value="<?php echo $client['Nom_client']; ?>" 
+                            class="w-full p-2 border rounded">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="block mb-2">Prénom</label>
+                        <input type="text" name="prenom" value="<?php echo $client['Prenom_client']; ?>" 
+                            class="w-full p-2 border rounded">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="block mb-2">Email</label>
+                        <input type="email" name="email" value="<?php echo $client['Email_client']; ?>" 
+                            class="w-full p-2 border rounded">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="block mb-2">Téléphone</label>
+                        <input type="text" name="telephone" value="<?php echo $client['Telephone_client']; ?>" 
+                            class="w-full p-2 border rounded">
+                    </div>
+                    
+                    <div class="flex justify-end gap-2">
+                        <a href="gestion.php" class="bg-gray-500 text-white px-4 py-2 rounded">Annuler</a>
+                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Enregistrer</button>
+                        </div>
+                </form>
             </div>
             <?php } ?>
             </tr>

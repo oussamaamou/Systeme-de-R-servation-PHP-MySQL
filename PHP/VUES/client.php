@@ -35,10 +35,10 @@ class Client {
         $sql = ("INSERT INTO reservationsdata (ID_client, ID_activite, Date_reservation, Status) VALUES (:ID_client, :ID_activite, :Date_reservation, :Status)");
         $stmt = $this->conn->prepare($sql);
 
-        $stmt->bind_param(':ID_client', $ID_client, PDO::PARAM_INT);
-        $stmt->bind_param(':ID_activite', $ID_activite, PDO::PARAM_INT);
-        $stmt->bind_param(':Date_reservation', $Date_reservation, PDO::PARAM_STR);
-        $stmt->bind_param(':Status', $Status, PDO::PARAM_STR);
+        $stmt->bindParam(':ID_client', $ID_client, PDO::PARAM_INT);
+        $stmt->bindParam(':ID_activite', $ID_activite, PDO::PARAM_INT);
+        $stmt->bindParam(':Date_reservation', $Date_reservation, PDO::PARAM_STR);
+        $stmt->bindParam(':Status', $Status, PDO::PARAM_STR);
 
 
         return $stmt->execute();
@@ -47,13 +47,26 @@ class Client {
 
     public function annulerreservation($ID){
 
-        $sql = ("DELETE FROM reservationsdata WHERE ID = ?");
+        $sql = ("DELETE FROM reservationsdata WHERE ID = :ID");
         $stmt = $this->conn->prepare($sql);
 
         $stmt->bindParam(':ID', $ID, PDO::PARAM_INT);
 
         return $stmt->execute();
     }
+
+    function getAllReservations() {
+
+        $sql = ("SELECT r.ID, u.Nom_client AS client_name, a.Nom_activite AS activity_name, r.Date_reservation, r.status
+                FROM reservationsdata r
+                JOIN users u ON r.ID_client = u.ID
+                JOIN activitesdata a ON r.ID_activite = a.ID");
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    }
+
 
 
     public function loginClient($username, $password){

@@ -39,7 +39,7 @@
                         echo "Mot de passe incorrect.";
                     }
                 } else {
-                    echo "Email non trouvé.";
+                    echo "Username non trouvé.";
                 }
             } else {
                 echo "Erreur lors de l'exécution de la requête.";
