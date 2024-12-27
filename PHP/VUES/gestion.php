@@ -4,7 +4,6 @@ require './admin.php';
 
 session_start();
 
-// Vérification de l'authentification admin
 if (!isset($_SESSION['user']) || $_SESSION['user']['Role'] !== 'Admin') {
     header('Location: login.php');
     exit();
@@ -13,7 +12,6 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['Role'] !== 'Admin') {
 $db = new Database();
 $userManager = new UserManager($db);
 
-// Gestion des actions
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['action'])) {
         switch ($_POST['action']) {
@@ -52,7 +50,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit();
 }
 
-// Suppression
 if (isset($_GET['delete'])) {
     try {
         $userManager->deleteUser($_GET['delete']);
@@ -64,7 +61,6 @@ if (isset($_GET['delete'])) {
     exit();
 }
 
-// Récupération des utilisateurs
 $users = $userManager->getAllUsers();
 ?>
 
