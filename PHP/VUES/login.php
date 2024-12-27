@@ -1,6 +1,6 @@
 <?php 
     include '../CONFIG/config.php';
-    include '../CONFIG/functions.php';
+    include '../VUES/client.php';
 
     session_start();
     $error_message = ""; 
@@ -9,9 +9,13 @@
         $username = $_POST['username'];
         $password = $_POST['password'];
 
+        $db = new DataBase();
+        $conn = $db->getConnection(); 
+
+        $client = new Client($conn);
         
-        if ($result === false) {
-            $error_message = "Mot de Passe ou Username est incorrect!";
+        if (!$client->loginClient($username, $password)) {
+            $error_message = "Invalid username or password.";
         }
     }
 
