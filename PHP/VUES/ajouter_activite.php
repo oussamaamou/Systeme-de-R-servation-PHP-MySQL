@@ -1,16 +1,33 @@
 <?php
-include '../CONFIG/config.php';
-include '../CONFIG/functions.php';
+require_once '../CONFIG/Database.php';
+require './admin.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $nom = $_POST['nom'];
-    $description = $_POST['description'];
-    $capacite = $_POST['capacite'];
-    $dateDebut = $_POST['date_debut'];
-    $dateFin = $_POST['date_fin'];
-    $disponibilite = $_POST['disponibilite'];
+session_start();
 
-//   addActivity($nom, $description, $capacite, $dateDebut, $dateFin, $disponibilite);
+if (!isset($_SESSION['user']) || $_SESSION['user']['Role'] !== 'Admin') {
+    header('Location: login.php');
+    exit();
+}
+
+$db = new Database();
+$activityManager = new ActivityManager($db);
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    try {
+        $activityManager->addActivity(
+            $_POST['nom'],
+            $_POST['description'],
+            $_POST['capacite'],
+            $_POST['date_debut'],
+            $_POST['date_fin'],
+            $_POST['disponibilite']
+        );
+        $_SESSION['message'] = "Activité ajoutée avec succès";
+        header('Location: afficher_activite.php');
+        exit();
+    } catch (Exception $e) {
+        $_SESSION['error'] = $e->getMessage();
+    }
 }
 
 ?>
