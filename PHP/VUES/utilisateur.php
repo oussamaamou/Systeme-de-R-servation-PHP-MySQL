@@ -9,54 +9,46 @@
         }
 
 
-        public function loginUtilisateur($username, $password){
-
-            $sql = ("SELECT * FROM users WHERE Email_client = ?");
+        public function loginUtilisateur($username, $password) {
+            $sql = "SELECT * FROM users WHERE Username = :username"; 
             $stmt = $this->conn->prepare($sql);
-
+        
             $stmt->bindParam(':username', $username, PDO::PARAM_STR);
-            $stmt->bindParam(':password', $password, PDO::PARAM_STR);
-
+        
             if($stmt->execute()){
-
-                $result = $stmt->get_result();
-
-                if($result->num_rows == 1){
-                    $utilisateur = $result->fetch_assoc();
-                    $tkemail = $utilisateur['Email_client'];
-                    $tkpassword = $utilisateur['Mot_de_passe'];
-                    $role = $utilisateur['Role'];
-                    $ID = $utilisateur['ID'];
-
-                    if($username === $tkemail && password_verify($password, $tkpassword)){
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+                if ($result) {
+                    $tkusername = $result['Username'];
+                    $tkpassword = $result['Mot_de_passe']; 
+                    $role = $result['Role'];
+                    $ID = $result['ID'];
+        
+                    if($username === $tkusername && password_verify($password, $tkpassword)){
                         $_SESSION['ID'] = $ID;
         
                         if($role === 'Client'){
-                            header("Location: /PHP/VUES/afficher_activite.php");
+                            header("Location: ../VUES/afficher_activite.php");
                             exit();
                         }
                         if($role === 'Admin'){
-                            header("Location: /PHP/VUES/gestion.php");
+                            header("Location: ../VUES/gestion.php");
                             exit();
                         }
-                    }
-                    else {
+                    } else {
                         echo "Mot de passe incorrect.";
                     }
-
-                }
-                else {
+                } else {
                     echo "Email non trouvé.";
                 }
-                
-            } 
-            else {
+            } else {
                 echo "Erreur lors de l'exécution de la requête.";
             }
-
+        
             $stmt->close();
-
         }
+        
+        
 
     
 
