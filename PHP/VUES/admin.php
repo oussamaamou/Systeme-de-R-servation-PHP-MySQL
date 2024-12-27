@@ -1,6 +1,5 @@
 <?php
 
-// CLASSES/AbstractManager.php
 abstract class AbstractManager {
     protected $db;
     protected $conn;
@@ -21,7 +20,7 @@ abstract class AbstractManager {
     }
 }
 
-// CLASSES/UserManager.php
+
 class UserManager extends AbstractManager {
     public function getAllUsers() {
         return $this->executeQuery("SELECT * FROM users")->fetchAll();
@@ -66,7 +65,6 @@ class UserManager extends AbstractManager {
     }
 }
 
-// CLASSES/ActivityManager.php
 class ActivityManager extends AbstractManager {
     public function getAllActivities() {
         return $this->executeQuery(
@@ -105,7 +103,6 @@ class ActivityManager extends AbstractManager {
     }
 }
 
-// CLASSES/ReservationManager.php
 class ReservationManager extends AbstractManager {
     public function getAllReservations() {
         return $this->executeQuery(
