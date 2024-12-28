@@ -9,11 +9,6 @@ if(!isset($_SESSION['ID'])){
     exit();
 }
 
-if(isset($_SESSION['ID'])){
-    header('location: login.php');
-    exit();
-}
-
 $db = new Database();
 $userManager = new UserManager($db);
 

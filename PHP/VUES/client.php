@@ -74,7 +74,7 @@ class Client {
     }
 
     function getAllClientReservations(){
-        
+
         $sql = ("SELECT r.ID, u.Nom_client AS client_name, a.Nom_activite AS activity_name, r.Date_reservation, r.status
                 FROM reservationsdata r
                 JOIN users u ON r.ID_client = u.ID
@@ -82,6 +82,7 @@ class Client {
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
     }
 
 
