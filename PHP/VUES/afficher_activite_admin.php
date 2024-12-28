@@ -2,6 +2,12 @@
 require_once '../CONFIG/Database.php';
 require './admin.php';
 
+session_start();
+
+if(!isset($_SESSION['ID'])){
+    header('location: login.php');
+    exit();
+}
 
 
 $db = new Database();

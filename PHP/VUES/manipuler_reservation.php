@@ -1,13 +1,20 @@
 <?php 
     include '../CONFIG/config.php'; 
-    include '../VUES/client.php'; 
+    include '../VUES/client.php';
+
+    session_start();
+    
+    if(!isset($_SESSION['ID'])){
+        header('location: login.php');
+        exit();
+    }
 
     $db = new DataBase();
     $conn = $db->getConnection();
     
     $client = new Client($conn);
     
-    $reservations = $client->getAllReservations();
+    $reservations = $client->getAllClientReservations();
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $ID_Reservation = $_POST['reservation_ID'];
